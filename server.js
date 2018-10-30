@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const localStrategy = require('./passport/local');
+const jwtStrategy = require('./passport/jwt');
 
 const { PORT, MONGODB_URI } = require('./config');
 
@@ -13,8 +14,9 @@ const foldersRouter = require('./routes/folders');
 const tagsRouter = require('./routes/tags');
 const usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
-
-// Create an Express application
+passport.use(localStrategy);
+passport.use(jwtStrategy);
+// Create an Express application!
 const app = express();
 
 // Log all requests. Skip logging during
@@ -28,13 +30,13 @@ app.use(express.static('public'));
 // Parse request body
 app.use(express.json());
 
-// Mount routers
+// Mount routers!
 app.use('/api/notes', notesRouter);
 app.use('/api/folders', foldersRouter);
 app.use('/api/tags', tagsRouter);
 app.use('/api/users', usersRouter);
 app.use('/api', authRouter);
-passport.use(localStrategy)
+
 
 // Custom 404 Not Found route handler
 app.use((req, res, next) => {
@@ -52,7 +54,13 @@ app.use((err, req, res, next) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 });
-
+// app.use(function (err, req, res, next) {
+//   res.status(err.status || 500);
+//   res.json({
+//     message: err.message,
+//     error: app.get('env') === 'development' ? err : {}
+//   });
+// });
 // Listen for incoming connections
 if (require.main === module) {
   // Connect to DB and Listen for incoming connections

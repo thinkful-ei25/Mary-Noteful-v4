@@ -23,7 +23,7 @@ userSchema.set('toJSON', {
 
   userSchema.methods.validatePassword = function (userSubmittedPassword) {
     const user = this; 
-    return userSubmittedPassword === user.password;
+   return bcrypt.compare(userSubmittedPassword, this.password);
   };
 
   userSchema.statics.hashPassword = function (incomingPassword) {
