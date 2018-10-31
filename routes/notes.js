@@ -2,6 +2,7 @@
 
 const express = require('express');
 const mongoose = require('mongoose');
+const passport = require('passport');
 
 const Note = require('../models/note');
 
@@ -11,8 +12,9 @@ router.use('/', passport.authenticate('jwt', { session: false, failWithError: tr
 /* ========== GET/READ ALL ITEMS ========== */
 router.get('/', (req, res, next) => {
   const { searchTerm, folderId, tagId } = req.query;
+  const userId = req.user.id;
 
-  let filter = {};
+  let filter = {userId};
 
   if (searchTerm) {
     const re = new RegExp(searchTerm, 'i');
@@ -48,8 +50,8 @@ router.get('/:id', (req, res, next) => {
     err.status = 400;
     return next(err);
   }
-
-  Note.findById(id)
+//mr x 123 ms y 321
+  Note.findOne({ _id: id, userId })
     .populate('tags')
     .then(result => {
       if (result) {

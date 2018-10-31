@@ -7,8 +7,8 @@ const options = {
     algorithms: ['HS256']
 };
 
-const JwtStrategy = new JwtStrategy(options, (payload, done) => {
+const jwtStrategy = new JwtStrategy(options, (payload, done) => {
     done(null, payload.user);
 })
 
-module.exports = JwtStrategy;
+module.exports = jwtStrategy;
