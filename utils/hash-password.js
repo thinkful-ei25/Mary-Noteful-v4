@@ -4,7 +4,7 @@ const password = 'testpassword';
 /* Hash a password with cost-factor 10, then run compare to verify */
 bcrypt.hash(password, 10)
   .then(digest => {
-    console.log('digest = ', digest);
+    console.log(digest);
     return digest;
   })
   .catch(err => {

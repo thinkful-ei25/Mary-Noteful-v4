@@ -111,7 +111,7 @@ const users = [
   {
     "_id" : '420000000000000000000000',
     "username" : "testuser",
-    "password" : "$2a$10$kQVzPZoApe1tRKp90bSAc.fE6TPIzk4igyTv/n4Gi0L5sdXDdSLQW",
+    "password" : "$2a$10$az.LAq/y1UyBDwsOs7PlxeSsunc68Hx303QmhKGwy97I3eRRHw.H2",
     "fullName" : "Test User",
   }
 ]
